@@ -3,7 +3,6 @@ import { DataSource } from 'typeorm';
 import { User } from '../models/User';
 import { Role } from '@models/Role';
 import { Permission } from '@models/Permission';
-import { UserRole } from '@models/UserRole';
 
 const db = new DataSource({
     type: 'postgres',

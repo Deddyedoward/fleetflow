@@ -8,9 +8,7 @@ import authRoute from './routes/authRoutes';
 import logger from '@utils/loggerUtil';
 import idempotency from '@middlewares/idempotency';
 import limiter from '@middlewares/rateLimiter';
-import authenticateToken from '@middlewares/authenticate';
 import errorHandler from '@middlewares/errorHandler';
-import authorization from '@middlewares/authorization';
 
 class App {
     public app: Application;
@@ -38,7 +36,7 @@ class App {
 
     private async initializeRoutes() {
         logger.info('Routes initialize');
-        this.app.use('/auth', authorization, authRoute);
+        this.app.use('/auth', authRoute);
     }
 
     private initializeSentry() {
