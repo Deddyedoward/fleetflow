@@ -1,14 +1,16 @@
 import 'module-alias/register';
-import './middlewares/sentry';
+import './shared/middlewares/sentry';
 import * as Sentry from '@sentry/node';
 import express, { Application } from 'express';
 
-import db from '@config/db';
-import authRoute from './routes/authRoutes';
-import logger from '@utils/loggerUtil';
-import idempotency from '@middlewares/idempotency';
-import limiter from '@middlewares/rateLimiter';
-import errorHandler from '@middlewares/errorHandler';
+
+import db from './config/db';
+import logger from './shared/utils/logger.util';
+import { AuthRoute } from './api/auth';
+import { errorHandler, idempotency, rateLimiter } from './shared';
+
+// define config, routes and shared modules
+
 
 class App {
     public app: Application;
@@ -19,7 +21,6 @@ class App {
     }
 
     private async configure() {
-        
         await this.initializeMiddlewares();
         await this.initializeRoutes();
         await this.connectToDatabase();
@@ -29,14 +30,14 @@ class App {
     private async initializeMiddlewares() {
         logger.info('Middlewares initialize');
         this.app.use(express.json());
-        this.app.use(limiter);
+        this.app.use(rateLimiter);
         // this.app.use(authenticateToken);
         this.app.use(idempotency);
     }
 
     private async initializeRoutes() {
         logger.info('Routes initialize');
-        this.app.use('/auth', authRoute);
+        this.app.use('/auth', AuthRoute);
     }
 
     private initializeSentry() {

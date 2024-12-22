@@ -1,15 +1,17 @@
-import { UserExistsException } from '@exceptions/UserExistsException';
-import { UserNotFoundException } from '@exceptions/UserNotFoundException';
-import { AuthRequest, AuthResultQuery, AuthSignUpRequest } from '@interfaces/AuthInterfaces';
-import UserRepository from '@repositories/UserRepository';
-import passwordUtil from '@utils/passwordUtil';
-import tokenUtil from '@utils/tokenUtil';
+import EmailQueueService from "../email/email-queue.service";
+import { UserExistsException, UserNotFoundException, UserRepository } from "../user";
+import { AuthRequest, AuthResultQuery, AuthSignUpRequest } from "./auth.interface";
+import passwordUtil from "./utils/password.util";
+import tokenUtil from "./utils/token.util";
+
 
 class AuthService {
     private userRepository: UserRepository;
+    private emailQueueService: EmailQueueService;
 
     constructor(userRepository: UserRepository) {
         this.userRepository = userRepository;
+        this.emailQueueService = new EmailQueueService();
     }
 
     public async verifyAuth(authInput: AuthRequest) {
@@ -31,6 +33,14 @@ class AuthService {
 
         authSignUp.password = await passwordUtil.hashPassword(authSignUp.password);
         const register = await this.userRepository.createOne(authSignUp);
+
+        // sending queue for send email
+        this.emailQueueService.queueEmail(
+            'welcome',
+            authSignUp.email,
+            'Welcome to Our platform',
+            { firstName: authSignUp.first_name }
+        )
         
         return { register };
     }
@@ -46,6 +56,7 @@ class AuthService {
         }
 
         const token = tokenUtil.generateToken({ id: auth.id,  roles: auth.roles});
+        
         return { token, expiresIn: 3600 };
     }
 }

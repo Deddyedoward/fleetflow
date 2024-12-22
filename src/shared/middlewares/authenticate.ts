@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { TokenNotFoundException } from "@exceptions/TokenNotFoundException";
-import tokenUtil from "@utils/tokenUtil";
+import { tokenUtil } from "../../api/auth";
+import { TokenNotFoundException } from "../../api/auth/exceptions/token-not-found.exception";
 
 const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers['authorization'];

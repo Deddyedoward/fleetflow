@@ -1,8 +1,9 @@
 import { DataSource } from 'typeorm';
+import { Permission } from '../api/permission';
+import { Role } from '../api/role';
+import { User } from '../api/user';
+// import entities
 
-import { User } from '../models/User';
-import { Role } from '@models/Role';
-import { Permission } from '@models/Permission';
 
 const db = new DataSource({
     type: 'postgres',

@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
-import db from '@config/db';
-import { User } from '../models/User';
+import { User } from './user.model';
+import db from '../../config/db';
 
 class UserRepository {
     private repository: Repository<User>;

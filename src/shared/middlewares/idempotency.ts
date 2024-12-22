@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import connection from "@config/redis"
+import connection from "../../config/redis";
 
 const idempotency = async (req: Request, res: Response, next: NextFunction) => {
     let idempotencyKey = req.headers['idempotency-key'] as string;

@@ -1,4 +1,4 @@
-export class UserExistsException extends Error {
+export default class UserExistsException extends Error {
     public message: string;
     public statusCode: number;
     public code: string;

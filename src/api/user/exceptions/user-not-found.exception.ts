@@ -1,4 +1,4 @@
-export class UserNotFoundException extends Error {
+export default class UserNotFoundException extends Error {
     public message: string;
     public statusCode: number;
     public code: string;
