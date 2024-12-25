@@ -1,5 +1,7 @@
 import EmailQueueService from "../email/email-queue.service";
-import { UserExistsException, UserNotFoundException, UserRepository } from "../user";
+import UserExistsException from "../user/exceptions/user-exists.exception";
+import UserNotFoundException from "../user/exceptions/user-not-found.exception";
+import UserRepository from "../user/user.repository";
 import { AuthRequest, AuthResultQuery, AuthSignUpRequest } from "./auth.interface";
 import passwordUtil from "./utils/password.util";
 import tokenUtil from "./utils/token.util";

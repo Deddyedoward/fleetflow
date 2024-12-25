@@ -6,9 +6,9 @@ import express, { Application } from 'express';
 
 import db from './config/db';
 import logger from './shared/utils/logger.util';
-import { AuthRoute } from './api/auth';
-import { errorHandler, idempotency, rateLimiter } from './shared';
-
+import { authenticateToken, errorHandler, idempotency, rateLimiter } from './shared';
+import userRoute from './api/user/user.routes';
+import authRoute from './api/auth/auth.routes';
 // define config, routes and shared modules
 
 
@@ -21,9 +21,9 @@ class App {
     }
 
     private async configure() {
+        await this.connectToDatabase();
         await this.initializeMiddlewares();
         await this.initializeRoutes();
-        await this.connectToDatabase();
         await this.initializeErrorHandler();
     }
 
@@ -37,7 +37,8 @@ class App {
 
     private async initializeRoutes() {
         logger.info('Routes initialize');
-        this.app.use('/auth', AuthRoute);
+        this.app.use('/auth', authRoute);
+        this.app.use('/user', authenticateToken, userRoute);
     }
 
     private initializeSentry() {

@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { validateSchema } from '../../shared';
-import { UserRepository } from '../user';
+import validateSchema from '../../shared/middlewares/validation';
 import { EmailService } from '../email';
 import AuthService from './auth.service';
 import AuthController from './auth.controller';
 import { authSignInSchema, authSignUpSchema } from './auth.validator';
+import UserRepository from '../user/user.repository';
 
 const authRoute = Router();
 

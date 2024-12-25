@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import { Permission } from '../api/permission';
 import { Role } from '../api/role';
-import { User } from '../api/user';
+import { User } from '../api/user/user.model';
 // import entities
 
 

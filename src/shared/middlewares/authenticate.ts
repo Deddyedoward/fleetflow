@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { tokenUtil } from "../../api/auth";
 import { TokenNotFoundException } from "../../api/auth/exceptions/token-not-found.exception";
+import tokenUtil from "../../api/auth/utils/token.util";
 
 const authenticateToken = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers['authorization'];
@@ -15,6 +15,8 @@ const authenticateToken = async (req: Request, res: Response, next: NextFunction
         res.status(403).json({ message: 'Token is not match...'})
         return;
     }
+
+    req.body.user = verify;
 
     next();
 }
