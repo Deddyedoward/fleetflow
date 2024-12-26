@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import { Permission } from '../api/permission';
 import { Role } from '../api/role';
 import { User } from '../api/user/user.model';
+import { Vehicle } from '../api/vehicle/vehicle.model';
 // import entities
 
 
@@ -17,7 +18,8 @@ const db = new DataSource({
     entities: [
         User,
         Role,
-        Permission
+        Permission,
+        Vehicle
     ],
 });
 
