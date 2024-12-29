@@ -4,6 +4,7 @@ import { Role } from '../api/role';
 import { User } from '../api/user/user.model';
 import { Vehicle } from '../api/vehicle/vehicle.model';
 import { Driver } from '../api/driver/driver.model';
+import { Fuel } from '../api/fuel/fuel.model';
 // import entities
 
 
@@ -21,7 +22,8 @@ const db = new DataSource({
         Role,
         Permission,
         Vehicle,
-        Driver
+        Driver,
+        Fuel
     ],
 });
 
