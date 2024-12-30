@@ -12,6 +12,7 @@ import authRoute from './api/auth/auth.routes';
 import vehicleRoute from './api/vehicle/vehicle.route';
 import driverRoute from './api/driver/driver.route';
 import fuelRoute from './api/fuel/fuel.route';
+import maintenanceRoute from './api/maintenance/maintenance.route';
 // define config, routes and shared modules
 
 
@@ -45,6 +46,7 @@ class App {
         this.app.use('/vehicle', authenticateToken, vehicleRoute);
         this.app.use('/driver', driverRoute);
         this.app.use('/fuel', fuelRoute);
+        this.app.use('/maintenance', maintenanceRoute);
     }
 
     private initializeSentry() {
